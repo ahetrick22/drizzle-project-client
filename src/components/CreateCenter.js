@@ -29,7 +29,7 @@ class CreateCenter extends React.Component {
     render() {
         return (
         <div>
-            <div>You current account in Metamask is: {this.props.drizzleState.accounts[0]} </div>
+            <div>Your current account in Metamask is: {this.props.drizzleState.accounts[0]} </div>
             <button onClick={this.create}> Register a Center at the Listed Account </button>
             <button>Login to an Existing Center or Plant</button>
             <div>{this.getTxStatus()} </div>

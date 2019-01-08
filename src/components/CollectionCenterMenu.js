@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { drizzleConnect } from 'drizzle-react';
-import { getState, sendEvent } from '../state';
+//import { getState, sendEvent } from '../state';
 
 class CollectionCenterMenu extends Component {
  

@@ -1,26 +1,31 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { drizzleConnect } from 'drizzle-react'
 import { AccountData, ContractData } from 'drizzle-react-components';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
+
 
 class Home extends Component {
-
-    //TEST - to get rid of later
-    checkLogin = () => {
-        console.log(this.props.BagCount)
-        console.log(this.props.BagCount.recyclingPlant['0x0'].value);
+    constructor(props, context) {
+        super(props);
+        this.contracts = context.drizzle.contracts;
     }
 
-        
+    //TEST - to get rid of later
+    createCenter = () => {
+       const newTx = this.contracts.BagCount.methods.createCenter().send();
+       console.log(newTx);
+    }
+
+
       render() {
           return(
-              <Fragment>
+              <>
                 <p>The recycling plant for this application is at address: <ContractData contract="BagCount" method="recyclingPlant" /></p>
                 Currently logged in as account: <AccountData accountIndex="0" units="ether" precision="3" />
                 <Link to="/create">Register this account</Link>
-                <button onClick={this.checkLogin}>Check the Login</button>
-                <p>{this.props.accounts[0]}</p>
-              </Fragment>
+                <button onClick={this.createCenter}>Create A Center at Current Address</button>
+              </>
           )  
     }
 }
@@ -29,12 +34,18 @@ const mapStateToProps = state => {
     return {
       accounts: state.accounts,
       drizzleStatus: state.drizzleStatus,
-      BagCount: state.contracts.BagCount
+      contracts: state.contracts
     }
+  }
+
+  Home.contextTypes = {
+    drizzle: PropTypes.object
   }
 
 export default drizzleConnect(Home, mapStateToProps);
 
+
+//PREVIOUS VERSION THAT MAY NEED TO INTEGRATE SOON
 
 // const { BagCount } = this.props.drizzle.contracts;
   
