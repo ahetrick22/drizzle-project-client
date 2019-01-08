@@ -1,15 +1,27 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { drizzleConnect } from 'drizzle-react';
+import { getState, sendEvent } from '../state';
 
 class CollectionCenterMenu extends Component {
-    state = {}
-
+ 
     render () {
+        console.log(this.props.BagCount);
         return(
-            <Fragment>
+            <>
             <div>CollectionCenterMenu route</div>
-        </Fragment>
+        </>
         )
     }
 }
 
-export default CollectionCenterMenu;
+const mapStateToProps = state => {
+    return {
+      accounts: state.accounts,
+      drizzleStatus: state.drizzleStatus,
+      BagCount: state.contracts.BagCount,
+    }
+  }
+
+
+export default drizzleConnect(CollectionCenterMenu,mapStateToProps);
+

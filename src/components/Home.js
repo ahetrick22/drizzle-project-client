@@ -3,16 +3,15 @@ import { drizzleConnect } from 'drizzle-react'
 import { AccountData, ContractData } from 'drizzle-react-components';
 import { Link } from 'react-router-dom';
 
-
-
-
 class Home extends Component {
 
+    //TEST - to get rid of later
     checkLogin = () => {
         console.log(this.props.BagCount)
         console.log(this.props.BagCount.recyclingPlant['0x0'].value);
     }
 
+        
       render() {
           return(
               <Fragment>

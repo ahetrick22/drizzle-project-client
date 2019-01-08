@@ -1,14 +1,25 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { drizzleConnect } from 'drizzle-react';
+import { getState, sendEvent } from '../state';
 
 class VerifyDelivery extends Component {
     
     render () {
         return(
-        <Fragment>
+        <>
             VerifyDelivery route
-        </Fragment>
+        </>
         )
     }
 }
 
-export default VerifyDelivery;
+const mapStateToProps = state => {
+    return {
+      accounts: state.accounts,
+      drizzleStatus: state.drizzleStatus,
+      BagCount: state.contracts.BagCount,
+    }
+  }
+
+
+export default drizzleConnect(VerifyDelivery,mapStateToProps);

@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import { ConnectedRouter, routerMiddleware } from "connected-react-router";
+import { ConnectedRouter } from "connected-react-router";
 import { generateContractsInitialState } from 'drizzle';
 import { createBrowserHistory } from 'history'
 import { DrizzleProvider } from 'drizzle-react';
@@ -10,13 +10,10 @@ import {LoadingContainer} from 'drizzle-react-components';
 import "./css/index.css";
 import App from "./components/App";
 import createRootReducer from './reducers';
-import thunkMiddleware from 'redux-thunk';
 import BagCount from "./contracts/BagCount.json";
 
 //create the browser history to use with connected react router
 const history = createBrowserHistory();
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // let drizzle know what contracts we want and events to listen to
 const options = { web3: {
@@ -36,23 +33,16 @@ const options = { web3: {
 
 //create the state that represents the contract
 const initialState = {
-    contracts: generateContractsInitialState(options)
+    contracts: generateContractsInitialState(options),
 };
 
-// setup the drizzle store and drizzle
-//const drizzleStore = generateStore(options);
-
+//set up the store w/connected router's reducer and the initial contract
 const store = createStore(
     createRootReducer(history),
     initialState,
-    composeEnhancers(applyMiddleware(
-        thunkMiddleware,
-        routerMiddleware(history)
     )
-    )
-)
 
-// pass in the drizzle instance
+// pass in the drizzle instance and its options around the standard provider
 ReactDOM.render((
     <DrizzleProvider options = {options}>
         <Provider store={store}>
